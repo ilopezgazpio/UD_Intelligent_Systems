@@ -1,0 +1,7 @@
+README.md
+setup.py
+gym_RiverCrossing.egg-info/PKG-INFO
+gym_RiverCrossing.egg-info/SOURCES.txt
+gym_RiverCrossing.egg-info/dependency_links.txt
+gym_RiverCrossing.egg-info/requires.txt
+gym_RiverCrossing.egg-info/top_level.txt
