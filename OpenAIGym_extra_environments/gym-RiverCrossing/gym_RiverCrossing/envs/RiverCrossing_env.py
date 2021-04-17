@@ -67,6 +67,7 @@ class RiverCrossingEnv(gym.Env):
 
     def reset(self):
         self.state = np.array((0, 0, 0, 0), dtype=np.int8)
+        return self.state
 
 
     def render(self, mode='human'):
