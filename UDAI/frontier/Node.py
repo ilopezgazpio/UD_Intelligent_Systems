@@ -1,0 +1,28 @@
+import gym
+import numpy as np
+
+'''
+Node class is a wrapper for a environment including additional features for observations / states
+'''
+class Node:
+
+    def __init__(self,
+                 env: gym.Env,
+                 observation = None,
+                 reward = 0,
+                 done = False,
+                 info = None,
+                 utility = 0,
+                 cost = 0, # accumulative sum of rewards
+                 action_history = [],
+                 depth = 0):
+
+        self.env = env
+        self.observation = observation
+        self.reward = reward
+        self.done = done
+        self.info = info
+        self.utility = utility
+        self.cost = cost
+        self.action_history = action_history
+        self.depth = depth
