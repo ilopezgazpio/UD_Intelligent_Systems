@@ -86,10 +86,10 @@ class RiverCrossingEnv(gym.Env):
         elif action == 1: # wolf
             possible = (self.state[2] != self.state[3]) and (self.state[0] == self.state[1])
 
-        if action == 2: # goat
+        elif action == 2: # goat
             possible = self.state[0] == self.state[2]
 
-        if action == 3: # cabbage
+        elif action == 3: # cabbage
             possible = (self.state[1] != self.state[2]) and (self.state[0] == self.state[3])
 
         return possible
