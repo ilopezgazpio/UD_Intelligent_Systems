@@ -187,5 +187,5 @@ frontier.nodes[1].env.env.render()
 # Can you perform some extra steps ?
 
 # what about repeating the procedure until done equals True ?
-# Let's better let UDAI to this work for us... :)
+# Let's better let UDAI do this work for us... :)
 
