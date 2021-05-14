@@ -1,0 +1,6 @@
+setup.py
+gym_StockTrading.egg-info/PKG-INFO
+gym_StockTrading.egg-info/SOURCES.txt
+gym_StockTrading.egg-info/dependency_links.txt
+gym_StockTrading.egg-info/requires.txt
+gym_StockTrading.egg-info/top_level.txt
