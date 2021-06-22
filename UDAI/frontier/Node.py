@@ -2,7 +2,7 @@ import gym
 import numpy as np
 
 '''
-Node class is a wrapper for a environment including additional features for observations / states
+Node class is a wrapper for an environment including additional features for observations / states
 '''
 class Node:
 
