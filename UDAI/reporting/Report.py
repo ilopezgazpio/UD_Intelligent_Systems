@@ -9,11 +9,11 @@ class Report:
 
 
     def __init__(self):
-        self.log = pd.DataFrame(columns=['Solution', 'Solution.Cost', 'Nodes.Expanded', 'Frontier.Max.Depth', 'Nodes.Frontier',])
+        self.log = pd.DataFrame(columns=['Solution', 'Solution.Cost', 'Nodes.Expanded', 'Frontier.Max.Depth', 'Nodes.Frontier', 'Current.Depth', 'Current.Cost'])
         self.__append__(0,0,0,0,0)
 
 
-    def __append__(self, solution=0, solutionCost=0, nodesExpanded=0, frontierMaxDepth=0, nodesFrontier=0):
+    def __append__(self, solution=0, solutionCost=0, nodesExpanded=0, frontierMaxDepth=0, nodesFrontier=0, currentDepth=0, currentCost=0):
         # Note that step iteration number is the index of the dataframe
         line = pd.Series(
             {
@@ -21,7 +21,9 @@ class Report:
                 'Solution.Cost': solutionCost,
                 'Nodes.Expanded': nodesExpanded,
                 'Frontier.Max.Depth': frontierMaxDepth,
-                'Nodes.Frontier': nodesFrontier
+                'Nodes.Frontier': nodesFrontier,
+                'Current.Depth' : currentDepth,
+                'Current.Cost' : currentCost
             }
         )
         self.log = self.log.append( line , ignore_index=True )
