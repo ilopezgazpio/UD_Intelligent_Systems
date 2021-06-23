@@ -60,7 +60,7 @@ class PuzzleEnv(gym.Env):
 
 
     def reset(self):
-        self.state = np.random.permutation(self.state)
+        self.state = np.random.permutation(self.state.reshape(-1)).reshape(3,3)
         return self.state
 
 
