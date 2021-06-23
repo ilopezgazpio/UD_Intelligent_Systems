@@ -9,21 +9,25 @@ class Report:
 
 
     def __init__(self):
-        self.log = pd.DataFrame(columns=['Solution', 'Solution.Cost', 'Nodes.Expanded', 'Frontier.Max.Depth', 'Nodes.Frontier', 'Current.Depth', 'Current.Cost'])
-        self.__append__(0,0,0,0,0)
+        pd.set_option('display.max_rows', None)
+        pd.set_option('display.max_columns', None)
+        pd.set_option('display.width', None)
+        pd.set_option('display.max_colwidth', None)
+        self.log = pd.DataFrame(columns=['Sol', 'Sol.Cost', 'Expanded', 'F.Max.Depth', 'Frontier', 'Cur.Depth', 'Cur.Cost'])
+        self.__append__(False,0,0,0,0)
 
 
-    def __append__(self, solution=0, solutionCost=0, nodesExpanded=0, frontierMaxDepth=0, nodesFrontier=0, currentDepth=0, currentCost=0):
+    def __append__(self, solution=False, solutionCost=0, nodesExpanded=0, frontierMaxDepth=0, nodesFrontier=0, currentDepth=0, currentCost=0):
         # Note that step iteration number is the index of the dataframe
         line = pd.Series(
             {
-                'Solution' : solution,
-                'Solution.Cost': solutionCost,
-                'Nodes.Expanded': nodesExpanded,
-                'Frontier.Max.Depth': frontierMaxDepth,
-                'Nodes.Frontier': nodesFrontier,
-                'Current.Depth' : currentDepth,
-                'Current.Cost' : currentCost
+                'Sol' : solution,
+                'Sol.Cost': solutionCost,
+                'Expanded': nodesExpanded,
+                'F.Max.Depth': frontierMaxDepth,
+                'Frontier': nodesFrontier,
+                'Cur.Depth' : currentDepth,
+                'Cur.Cost' : currentCost
             }
         )
         self.log = self.log.append( line , ignore_index=True )
@@ -40,7 +44,7 @@ class Report:
         '''
         Prints iteration vs # nodes in frontier
         '''
-        ax = self.log['Nodes.Frontier'].plot(lw=2, colormap='jet', marker='.', markersize=10, title='Iteration vs # nodes in frontier')
+        ax = self.log['Frontier'].plot(lw=2, colormap='jet', marker='.', markersize=10, title='Iteration vs # nodes in frontier')
         ax.set_xlabel("# Iteration")
         ax.set_ylabel("# Nodes")
 
@@ -55,7 +59,7 @@ class Report:
         Prints histogram of nodes added to frontier per step in bins
         '''
 
-        ax = self.log['Nodes.Expanded'].plot(kind='hist', colormap='jet', bins=nbins, title='Histogram of nodes added to frontier')
+        ax = self.log['Expanded'].plot(kind='hist', colormap='jet', bins=nbins, title='Histogram of nodes added to frontier')
         ax.set_xlabel("Nodes added")
         ax.set_ylabel("Frequency")
 
@@ -70,7 +74,7 @@ class Report:
         Print plot of Frontier Maximum Depth
         '''
 
-        ax = self.log['Frontier.Max.Depth'].plot(lw=2, colormap='jet', marker='.', markersize=10, title='Iteration vs Frontier Maximum Depth')
+        ax = self.log['F.Max.Depth'].plot(lw=2, colormap='jet', marker='.', markersize=10, title='Iteration vs Frontier Maximum Depth')
         ax.set_xlabel("# Iteration")
         ax.set_ylabel("Max Depth")
 
