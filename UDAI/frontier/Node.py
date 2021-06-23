@@ -7,7 +7,7 @@ Node class is a wrapper for an environment including additional features for obs
 class Node:
 
     def __init__(self,
-                 env: gym.Env,
+                 env: gym.Env = None,
                  observation = None,
                  reward = 0,
                  done = False,
