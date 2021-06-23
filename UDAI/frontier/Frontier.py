@@ -43,6 +43,11 @@ class Frontier:
                 self.__insert_one_right__(node)
                 self.visited_nodes.update( {tuple(node.observation.reshape(-1).tolist()) : True} )
 
+    def __insert_all_left_not_visited__(self, list_nodes: list) -> None:
+        for node in reversed(list_nodes):
+            if not self.visited_nodes[tuple(node.observation.reshape(-1).tolist())]:
+                self.__insert_one_left__(node)
+                self.visited_nodes.update({tuple(node.observation.reshape(-1).tolist()): True})
 
     def __get_frontier_max_depth__(self):
         return max ( [node.depth for node in self.nodes], default=0 )
