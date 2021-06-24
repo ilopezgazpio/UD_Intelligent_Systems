@@ -10,7 +10,8 @@ class Frontier:
         self.visited_nodes = defaultdict(bool) # default behaviour, node visited = False
         self.frontier_insertion_function = lambda x: x #identity function
         self.frontier_ordering_function = lambda x: x #identity function
-        self.frontier_post_processing_function = lambda x: x  # identity function
+        self.expanded_post_processing_function = lambda x: x  # identity function
+        self.max_depth_nodes = None
 
 
     def __insert_one_left__(self, new_node : Node) -> None:
@@ -43,11 +44,28 @@ class Frontier:
                 self.__insert_one_right__(node)
                 self.visited_nodes.update( {tuple(node.observation.reshape(-1).tolist()) : True} )
 
+
     def __insert_all_left_not_visited__(self, list_nodes: list) -> None:
         for node in reversed(list_nodes):
             if not self.visited_nodes[tuple(node.observation.reshape(-1).tolist())]:
                 self.__insert_one_left__(node)
                 self.visited_nodes.update({tuple(node.observation.reshape(-1).tolist()): True})
 
+
     def __get_frontier_max_depth__(self):
         return max ( [node.depth for node in self.nodes], default=0 )
+
+
+    def __remove_max_depth_nodes__(self, list_nodes: list) -> list:
+        '''
+        This function receives a list of nodes (possibly some expanded nodes on an iteration) and filters the nodes that have depth value > max_depth
+        Parameters
+        ----------
+        list_nodes
+        max_depth
+
+        Returns
+        -------
+        List of nodes
+        '''
+        return list(filter(lambda x: x.depth <= self.max_depth_nodes, list_nodes))

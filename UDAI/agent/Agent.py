@@ -27,7 +27,7 @@ class Agent(ABC):
             print(self.reporting.log.tail(1))
 
 
-    def __blind_search__(self, max_steps=5000):
+    def __blind_search__(self, max_steps=5000, depth_limit=None):
         '''
         This method implements the main search loop and must be implemented with the particularities of each search agent
         '''
@@ -38,7 +38,10 @@ class Agent(ABC):
             current = self.frontier.__get_one_left__()
             expanded = self.__expand_node__(current)
 
-            # Algorithm agnostic implementation
+            # Algorithm agnostic implementation on what filter to apply on expanded nodes (such as a depth limit for DLS)
+            expanded = self.frontier.expanded_post_processing_function(expanded)
+
+            # Algorithm agnostic implementation on how to insert expanded nodes in frontier
             self.frontier.frontier_insertion_function(expanded)
 
             self.reporting.__append__(current.done, current.cost, len(expanded),
