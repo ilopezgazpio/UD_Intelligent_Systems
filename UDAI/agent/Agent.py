@@ -27,7 +27,7 @@ class Agent(ABC):
             print(self.reporting.log.tail(1))
 
 
-    def __blind_search__(self, max_steps=5000, depth_limit=None):
+    def __blind_search__(self, max_steps=5000):
         '''
         This method implements the main search loop and must be implemented with the particularities of each search agent
         '''
@@ -53,6 +53,15 @@ class Agent(ABC):
 
         if current.done:
             self.final_node = current
+
+
+    def __iterative_blind_search__(self, first_node: Node, max_steps=5000, depth_limit=10):
+        # Perform an iterative DLS, note that it is important to clear the frontier each time we initiate a new search
+        for depth in range(1,depth_limit + 1):
+            self.frontier.max_depth_nodes = depth
+            self.frontier.nodes.clear()
+            self.__initialize_frontier__(first_node)
+            self.__blind_search__(max_steps)
 
 
     def __save_iteration__(self):
