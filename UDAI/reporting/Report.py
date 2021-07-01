@@ -83,6 +83,20 @@ class Report:
 
         return ax
 
+    def plotFrontierCost(self, show=True):
+        '''
+        Print plot of Frontier current node cost
+        '''
+
+        ax = self.log['Cur.Cost'].plot(lw=2, colormap='jet', marker='.', markersize=10,
+                                          title='Iteration vs Current Node Cost')
+        ax.set_xlabel("# Iteration")
+        ax.set_ylabel("Cost")
+
+        if show:
+            plt.show()
+
+        return ax
 
     def show(self):
         '''
