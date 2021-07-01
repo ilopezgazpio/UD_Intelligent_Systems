@@ -7,8 +7,6 @@ from UDAI.reporting.Report import Report
 
 class Agent(ABC):
 
-    # TODO iteration count limiter
-
     def __init__(self):
         self.step = 0
         self.initial_node = None
