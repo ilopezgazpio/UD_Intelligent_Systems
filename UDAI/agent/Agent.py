@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import gym
 from gym import spaces
 from copy import deepcopy
 from UDAI.frontier.Node import Node
@@ -13,6 +14,7 @@ class Agent(ABC):
         self.final_node = None
         self.frontier = Frontier()
         self.reporting = Report()
+        self.wrapped_env = False
 
 
     def __initialize_frontier__(self, initial_node : Node):
@@ -42,7 +44,7 @@ class Agent(ABC):
             # Algorithm agnostic implementation on how to insert expanded nodes in frontier
             self.frontier.frontier_insertion_function(expanded)
 
-            self.reporting.__append__(current.done, current.cost, len(expanded),
+            self.reporting.__append__(current.done, len(expanded),
                                       self.frontier.__get_frontier_max_depth__(), len(self.frontier.nodes),
                                       current.depth, current.cost)
             self.__printlog__(print_every=1)
@@ -106,9 +108,15 @@ class Agent(ABC):
 
         expanded = list()
 
+        # We need this hack to work with Wrapped environments. Do not pay close attention
+        if self.wrapped_env:
+            __is_applicable__ = node.env.env.env.__is_applicable__
+        else:
+            __is_applicable__ = node.env.env.__is_applicable__
+
         if isinstance(action_space, spaces.Discrete):
             for action in range(action_space.n):
-                if node.env.env.__is_applicable__(action):
+                if __is_applicable__(action):
                     env = deepcopy(node.env)
                     observation, reward, done, info = env.step(action)
                     new_node = Node( env,
