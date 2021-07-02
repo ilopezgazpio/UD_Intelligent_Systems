@@ -13,16 +13,15 @@ class Report:
         pd.set_option('display.max_columns', None)
         pd.set_option('display.width', None)
         pd.set_option('display.max_colwidth', None)
-        self.log = pd.DataFrame(columns=['Sol', 'Sol.Cost', 'Expanded', 'F.Max.Depth', 'Frontier', 'Cur.Depth', 'Cur.Cost'])
-        self.__append__(False,0,0,0,0)
+        self.log = pd.DataFrame(columns=['Sol', 'Expanded', 'F.Max.Depth', 'Frontier', 'Cur.Depth', 'Cur.Cost'])
+        self.__append__(False,0,0,0,0,0)
 
 
-    def __append__(self, solution=False, solutionCost=0, nodesExpanded=0, frontierMaxDepth=0, nodesFrontier=0, currentDepth=0, currentCost=0):
+    def __append__(self, solution=False, nodesExpanded=0, frontierMaxDepth=0, nodesFrontier=0, currentDepth=0, currentCost=0):
         # Note that step iteration number is the index of the dataframe
         line = pd.Series(
             {
                 'Sol' : solution,
-                'Sol.Cost': solutionCost,
                 'Expanded': nodesExpanded,
                 'F.Max.Depth': frontierMaxDepth,
                 'Frontier': nodesFrontier,
